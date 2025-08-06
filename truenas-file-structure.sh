@@ -3,10 +3,6 @@
 # Prompt the user for the pool name
 read -p "Enter the pool name: " POOLNAME
 
-# Retrieve the private IP address of the server and convert it to CIDR notation
-PRIVATE_IP=$(hostname -I | awk '{print $1}')
-CIDR_NETWORK="${PRIVATE_IP%.*}.0/24"
-
 # Define datasets and directories
 CONFIG_DATASETS=("prowlarr" "radarr" "sonarr" "jellyseerr" "recyclarr" "bazarr" "tdarr" "jellyfin" "sabnzbd" "dozzle")
 TDARR_SUBDIRS=("server" "logs" "transcode_cache")
@@ -78,3 +74,4 @@ if mountpoint -q "$TDARR_MOUNTPOINT"; then
 else
     echo "⚠️ Skipping tdarr subdirectory creation; dataset is not mounted."
 fi
+
