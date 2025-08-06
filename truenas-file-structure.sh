@@ -68,3 +68,13 @@ create_dataset "media"
 for subdir in "${MEDIA_SUBDIRECTORIES[@]}"; do
     create_directory "/mnt/$POOLNAME/media/$subdir"
 done
+
+# Ensure Tdarr subdirectories exist (only if tdarr dataset is properly mounted)
+TDARR_MOUNTPOINT="/mnt/$POOLNAME/configs/tdarr"
+if mountpoint -q "$TDARR_MOUNTPOINT"; then
+    for subdir in "${TDARR_SUBDIRS[@]}"; do
+        create_directory "$TDARR_MOUNTPOINT/$subdir"
+    done
+else
+    echo "⚠️ Skipping tdarr subdirectory creation; dataset is not mounted."
+fi
